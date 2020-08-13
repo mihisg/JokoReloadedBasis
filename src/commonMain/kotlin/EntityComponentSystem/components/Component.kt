@@ -1,9 +1,6 @@
-package EntityComponentSystem
+package EntityComponentSystem.components
 
-import com.soywiz.klock.hr.HRTimeSpan
-import com.soywiz.korge.component.MouseComponent
 import com.soywiz.korge.component.UpdateComponent
-import com.soywiz.korge.view.View
 
 /**
  * Simple basic interface as a prototype for all components
@@ -16,9 +13,10 @@ import com.soywiz.korge.view.View
  * @property type The type of the Component. It's a value from type [ComponentType]
  * @see ComponentType
 */
-interface Component: UpdateComponent {
-    override val view: Entity
+interface Component {
     val type: ComponentType
+
+    fun update()
 }
 
 
