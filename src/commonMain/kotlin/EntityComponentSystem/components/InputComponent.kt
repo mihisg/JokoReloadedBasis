@@ -1,16 +1,7 @@
 package EntityComponentSystem.components
 
-import EntityComponentSystem.Component
-import EntityComponentSystem.ComponentType
-import EntityComponentSystem.Entity
-import com.soywiz.klock.seconds
-import com.soywiz.korev.Key
-import com.soywiz.korge.input.keys
-import com.soywiz.korge.view.View
-import com.soywiz.korgw.delay
-import org.jbox2d.common.Vec2
-
-class InputComponent(override val view: Entity) : Component {
+/**
+class InputComponent() : Component {
 
     override val type: ComponentType = ComponentType.INPUT
 
@@ -41,7 +32,9 @@ class InputComponent(override val view: Entity) : Component {
         }
     }
 
-    override fun update(ms: Double) {
+    override fun update(dt: TimeSpan) {
 
     }
 }
+
+    */
