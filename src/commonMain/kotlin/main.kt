@@ -14,7 +14,9 @@ suspend fun main() = Korge(width = 1800, height = 1000, bgcolor = Colors["#2b2b2
 
     val testEntity = Entity()
     val viewComponent = ViewComponent()
+    val physicsComponent = PhysicsComponent()
     testEntity.addComponent(viewComponent)
+    testEntity.addComponent(physicsComponent)
 
 
 }

@@ -8,17 +8,14 @@ fun Stage.viewSystem(){
 	ViewSystem.stage = this
 }
 
-object ViewSystem : System {
-
+object ViewSystem : System() {
 	lateinit var stage : Stage
 
-	val views = mutableListOf<View>()
-
 	override fun add(entity: Entity) {
-		val v = (entity.components[ComponentType.VIEW] as ViewComponent).view
-		views.add(v)
-		stage.addChild(v)
+		if (entity.hasComponent(ComponentType.VIEW)){
+			val v = (entity.components[ComponentType.VIEW] as ViewComponent).view
+
+			stage.addChild(v)
+		}
 	}
-
-
 }
