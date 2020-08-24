@@ -1,16 +1,13 @@
 package EntityComponentSystem.components
 
+import Physics.onTiledObjectCollision
+import com.soywiz.korev.Key
+import com.soywiz.korge.input.keys
 import com.soywiz.korge.view.*
 import com.soywiz.korim.color.*
+import com.soywiz.korma.geom.Rectangle
 
-class ViewComponent() : Component {
-    override val type: ComponentType = ComponentType.VIEW
-    val view : View = SolidRect(100.0, 100.0, Colors.GREEN)
+class ViewComponent(x: Number, y: Number, width: Number, height: Number) : Component {
+    val view : SolidRect = SolidRect(width.toDouble(), height.toDouble(), Colors.GREEN).xy(x, y)
 
-    init {
-    }
-
-    override fun update() {
-
-    }
 }

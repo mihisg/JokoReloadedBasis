@@ -14,9 +14,8 @@ import com.soywiz.korge.component.UpdateComponent
  * @see ComponentType
 */
 interface Component {
-    val type: ComponentType
 
-    fun update()
 }
+
 
 

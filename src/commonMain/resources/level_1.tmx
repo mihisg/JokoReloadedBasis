@@ -429,9 +429,9 @@
 </data>
  </layer>
  <objectgroup id="5" name="Hallo">
-  <object id="2" name="Test" x="100" y="160" width="28.3333" height="101.667"/>
-  <object id="4" name="Test2" x="218.333" y="161" width="28" height="72.6667"/>
-  <object id="5" name="Test3" x="273" y="176.333" width="46" height="48"/>
+  <object id="2" name="Test" x="0" y="300" width="300" height="30"/>
+  <object id="4" name="Test2" x="158.833" y="155.5" width="28" height="72.6667"/>
+  <object id="5" name="Test3" x="310.5" y="248.333" width="69.5" height="48"/>
  </objectgroup>
  <objectgroup id="6" name="Hallo2">
   <object id="6" name="Test4" x="263.333" y="114.333" width="33.6667" height="44"/>

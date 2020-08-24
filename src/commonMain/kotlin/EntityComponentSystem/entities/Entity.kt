@@ -5,17 +5,14 @@ import EntityComponentSystem.components.*
 import EntityComponentSystem.entities.EntityManager.add
 import EntityComponentSystem.systems.*
 import com.soywiz.korge.view.*
-
-
-//Verbesserungsvorschläge erwünscht!!!!! (v.a. die unteren Methoden, falls es da elegantere Möglichkeiten gibt)
+import org.jbox2d.common.Vec2
+import kotlin.reflect.KClass
 
 
 class Entity() {
-    //If this gets false, the Entity will be removed from the game
-    private var active = true
 
     //All components the Entity has are stored here
-    val components = mutableMapOf<ComponentType, Component>()
+    val components = mutableMapOf<KClass<out Component>, Component>()
 
     init {
         /** add the Entity to the [EntityManager]       */
@@ -24,26 +21,56 @@ class Entity() {
 
     //destroy the entity
     fun destroy() {
-        active = false
         EntityManager.remove(this)
     }
 
     //returns true if the Entity has a component of specific type
-    fun hasComponent(componentType: ComponentType) = components[componentType] != null
+    inline fun <reified T: Component> hasComponent(): Boolean {
+        return components[T::class] != null
+        /*if (T::class == PhysicsComponent::class) return components[ComponentType.PHYSICS] != null
+        if (T::class == ViewComponent::class) return components[ComponentType.VIEW] != null
+        if (T::class == InputComponent::class) return components[ComponentType.INPUT] != null
+        // . . .*/
+        //else return false
+    }
 
-    fun addComponent(component: Component)  {
-        components.put(component.type, component)
+
+    fun addComponent(component: Component) {
+        components.put(component::class, component)
         when (component) {
             is ViewComponent -> ViewSystem.add(this)
-            is PhysicsComponent -> PhysicsSystem.add(this)
-
+            is PhysicsComponent -> {
+                if (hasComponent<ViewComponent>()) component.position = Vec2(getComponent<ViewComponent>().view.x.toFloat(),
+                    getComponent<ViewComponent>().view.y.toFloat()
+                )
+                PhysicsSystem.add(this)
+            }
+            is InputComponent -> InputSystem.add(this)
         }
 
     }
-        fun update(){
-            components.map { it.value.update() }
+
+    fun removeComponent(component: Component) {
+        if (components.containsValue(component)) {
+            when (component) {
+                is ViewComponent -> ViewSystem.remove(this)
+                is PhysicsComponent -> PhysicsSystem.remove(this)
+                is InputComponent -> InputSystem.remove(this)
+            }
+            components.remove(component::class)
         }
     }
+
+    inline fun < reified T: Component> getComponent() : T {
+        if (components[T::class] != null) return components[T::class] as T
+        /*if (T::class == PhysicsComponent::class) return components[ComponentType.PHYSICS] as T
+        if (T::class == ViewComponent::class) return components[ComponentType.VIEW] as T
+        if (T::class == InputComponent::class) return components[ComponentType.INPUT] as T
+        // . . .*/
+        error("The entity has no component of this type -> cannot getComponent<${T::class}>()")
+    }
+
+}
 
 
 

@@ -1,6 +1,9 @@
 package EntityComponentSystem.entities
 
 import EntityComponentSystem.entities.*
+import EntityComponentSystem.systems.InputSystem
+import EntityComponentSystem.systems.PhysicsSystem
+import EntityComponentSystem.systems.physicsSystem
 import com.soywiz.klock.hr.*
 import com.soywiz.korge.view.*
 
@@ -8,7 +11,7 @@ import com.soywiz.korge.view.*
 
 fun Stage.entityManager(refreshRate : HRTimeSpan){
     this.addHrUpdater {
-        EntityManager.entities.map { it.update() }
+        //EntityManager.entities.map { it.update() }
     }
 }
 
